@@ -1,3 +1,3 @@
-### School
+# School
 
-# School Management
+#### School Management
