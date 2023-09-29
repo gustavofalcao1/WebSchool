@@ -1,0 +1,43 @@
+Arguments: 
+  /usr/local/Cellar/node/20.7.0/bin/node /usr/local/bin/yarn add isomorphic-unfetch
+
+PATH: 
+  /Library/Frameworks/Python.framework/Versions/3.11/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS:/Users/gustavofalcao/.local/share/zinit/polaris/bin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/usr/local/Caskroom/android-platform-tools/lates:/usr/local/Caskroom/android-platform-tools/lates
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  20.7.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: EACCES: permission denied, mkdir '/Users/gustavofalcao/Dev/School/node_modules/fetch-blob'
+
+npm manifest: 
+  {
+    "name": "school",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "next"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "next": "^13.5.2",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
