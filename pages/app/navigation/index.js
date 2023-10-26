@@ -1,13 +1,14 @@
 import React, { useState } from "react"
 import { MdSchool, MdSpaceDashboard, MdInventory, MdPeople, MdHandyman, MdSettings } from 'react-icons/md'
+import { locale } from '../../../public/locale'
 
 const Navigation = ({setContent}) => {
   const [menu, setMenu] = useState([
-    { id: 0, text: 'Dashboard', icon: <MdSpaceDashboard size={35} />, status: true },
-    { id: 1, text: 'Inventory', icon: <MdInventory size={35} />, status: false },
-    { id: 2, text: 'Users', icon: <MdPeople size={35} />, status: false },
-    { id: 3, text: 'Tools', icon: <MdHandyman size={35} />, status: false },
-    { id: 4, text: 'Settings', icon: <MdSettings size={35} />, status: false },
+    { id: 0, text: locale.pt.navigation.requests, icon: <MdSpaceDashboard className="icon" size={35} />, status: true },
+    { id: 1, text: locale.pt.navigation.inventory, icon: <MdInventory className="icon" size={35} />, status: false },
+    { id: 2, text: locale.pt.navigation.users, icon: <MdPeople className="icon" size={35} />, status: false },
+    { id: 3, text: locale.pt.navigation.tools, icon: <MdHandyman className="icon" size={35} />, status: false },
+    { id: 4, text: locale.pt.navigation.settings, icon: <MdSettings className="icon" size={35} />, status: false },
   ]);
 
   const handleMenu = (id) => {
@@ -21,7 +22,7 @@ const Navigation = ({setContent}) => {
   return (
     <div className="navigation-container">
       <div className="navigation-logo">
-        <MdSchool size={40} />
+        <MdSchool className="icon" size={40} />
         <h1>Logo</h1>
       </div>
       <ul className="navigation-menu">

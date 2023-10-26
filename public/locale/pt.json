@@ -1,0 +1,149 @@
+{
+  "navigation": {
+    "requests": "Requisições",
+    "inventory": "Inventário",
+    "users": "Utilizadores",
+    "tools": "Ferramentas",
+    "settings": "Definições"
+  },
+  "header": {
+    "search": {
+      "placeholder": "Procurar..."
+    },
+    "profile": {
+      "account": "Minha Conta",
+      "logout": "Sair da Conta"
+    }
+  },
+  "requests": {
+    "request": {
+      "code": "Código",
+      "requester": "Requerente",
+      "reqAt": "Data da Requisição",
+      "resAt": "Data da Devolução",
+      "edit": "Ações",
+      "res": "Devolver"
+    },
+    "actions": {
+      "filter": {
+        "title": "Filtrar por:",
+        "default": "Todos"
+      },
+      "order": {
+        "title": "Ordernar por:",
+        "default": "Código"
+      }
+    }
+  },
+  "inventory": {
+    "items": {
+      "code": "Código",
+      "name": "Nome",
+      "type": "Tipo",
+      "place": "Local",
+      "description": "Descrição",
+      "brand": "Marca",
+      "model": "Modelo",
+      "sn": "SN",
+      "edit": "Editar"
+    },
+    "actions": {
+      "filter": {
+        "title": "Filtrar por:",
+        "default": "Todos"
+      },
+      "order": {
+        "title": "Ordernar por:",
+        "default": "Código"
+      }
+    }
+  },
+  "history": {
+    "title": "Histórico de Requisições"
+  },
+  "add": {
+    "title": "Adicionar novo Item",
+    "inputs": {
+      "code": "Código",
+      "name": "Nome",
+      "place": {
+        "default": "Local",
+        "sec": "Secretaria",
+        "stock": "Reprografia"
+      },
+      "type": {
+        "default": "Tipo",
+        "pc": "Computador",
+        "equipament": "Equipamento",
+        "speak": "Coluna",
+        "adpter": "Adaptador",
+        "hardware": "Componente",
+        "acessory": "Periférico",
+        "cable": "Cabo"
+      },
+      "codeItem": {
+        "default": "Item"
+      },
+      "displayName": {
+        "default": "Utilizador"
+      },
+      "description": "Descrição",
+      "brand": "Marca",
+      "model": "Modelo",
+      "sn": "SN",
+      "submit": "Adicionar"
+    }
+  },
+  "edit": {
+    "title": "Editar Item",
+    "inputs": {
+      "submit": "Atualizar"
+    }
+  },
+  "users": {
+    "inputs": {
+      "process": "Número",
+      "name": "Nome",
+      "email": "Email",
+      "password": "Palavra-passe",
+      "photoURL": "Foto de Perfil",
+      "group": {
+        "default": "Grupo",
+        "prof": "Docente",
+        "nProf": "Não Docente"
+      },
+      "sector": {
+        "default": "Setor",
+        "sec": "Secretaria",
+        "admin": "Administração",
+        "it": "Informática",
+        "edu": "Educação",
+        "account": "Contabilidade",
+        "clean": "Limpeza",
+        "security": "Segurança"
+      },
+      "type": {
+        "default": "Tipo",
+        "user": "Utilizador",
+        "manager": "Gestor",
+        "admin": "Administrador"
+      },
+      "codeItem": {
+        "default": "Item"
+      },
+      "displayName": {
+        "default": "Utilizador"
+      },
+      "submit": "Adicionar"
+    }
+  },
+  "login": {
+    "title": "Entrar",
+    "remember": "Guardar dados de autenticação",
+    "inputs": {
+      "username": "Nome de Utilizador",
+      "password": "Palavra-passe",
+      "submit": "Login"
+    }
+  }
+}

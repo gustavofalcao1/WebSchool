@@ -1,23 +1,64 @@
-import React from "react"
-import { MdSearch, MdNotifications, MdOutlineArrowDropDown } from 'react-icons/md'
+import React, {useState} from "react"
+import { MdSearch, MdNotifications } from 'react-icons/md'
+import { RiLogoutCircleRLine} from 'react-icons/ri'
+import {locale} from '../../../public/locale'
 
-const Header = () => {
+import Alert from '../../components/alert'
+
+const Header = ({user}) => {
+  const [dropMenu, setDropMenu] = useState(false)
+  const [alert, setAlert] = useState(false)
+  const [data, setData] = useState(null)
+
+  const handleDropMenu = () => {
+    setDropMenu(!dropMenu)
+  }
+
+  const handleLogout = () => {
+    const item = {
+      title: 'Tens a certeza?',
+      text: 'Tens a certeza, que queres desconectar da conta:',
+      name: user?.displayName,
+      button: handleConfirm
+    }
+    setData(item)
+    setAlert(true)
+  }
+
+  const handleConfirm = () => {
+    localStorage.removeItem("user")
+    window.location.reload()
+  }
+
   return (
     <div className="header-container">
+      {alert && (
+            <Alert data={data} setAlert={setAlert} />
+          )}
       <div className="header-left">
-        <input className="header-left-input" placeholder="Search bar, type what u find..."></input>
+        <input className="header-left-input" placeholder={locale.pt.header.search.placeholder}></input>
         <div className="header-left-search">
-          <MdSearch size={22} />
+          <MdSearch className="icon" size={22} />
         </div>
       </div>
       <div className="header-right">
         <div className="header-right-status">
-          <MdNotifications size={22} />
+          <MdNotifications className="icon" size={28} />
         </div>
-        <div className="header-right-profile">  
-          <div className="header-right-profile-photo"></div>
-          <h1>Gustavo Falcão</h1>
-          <MdOutlineArrowDropDown size={18} />
+        <div className="header-right-profile" onClick={handleDropMenu}>  
+          <div className="header-right-profile-photo">
+            <img src={user?.photoURL} />
+          </div>
+          <h1>{user?.displayName}</h1>
+          <RiLogoutCircleRLine className="icon logout" size={22} onClick={handleLogout} />
+          {dropMenu && (
+            <div className="header-right-profile-dropdown-menu">
+              <ul>
+                <li>{locale.pt.header.profile.account}</li>
+                <li onClick={handleLogout}>{locale.pt.header.profile.logout}</li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>

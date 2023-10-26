@@ -1,0 +1,10 @@
+:root {
+  --primary: #FFCF01;
+  --secondary: #30ff01;
+  --background: #121214;
+  --input-background: #424244;
+  --box-background: #282828;
+  --box-shadow: #00000080;
+  --text: #FFFFFF;
+  --text-dark: #121214;
+}

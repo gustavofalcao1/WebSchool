@@ -1,179 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
 
+@import 'colors.css';
+
 * {
   margin: 0;
   padding: 0;
+  user-select: none;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 5px;
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: var(--primary);
 }
 body {
   font-family: 'Nunito', Courier, monospace;
-  background: #CBCBCB;
+  font-size: 10px;
+  color: var(--text);
+  background: var(--background);
 }
 h1, h2, h3, h4, h5, h6, p, a {
   font-weight: 400;
-}
-
-/* Header */
-.header-container {
-  position: absolute;
-  right: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 60px;
-  width: 79.5%;
-  margin: 10px;
-  border-radius: 10px;
-  background-color: #FFFFFF;
-}
-.header-left {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  text-align: left;
-  height: 20px;
-  width: 300px;
-  padding: 10px;
-  margin-left: 10px;
-  border-radius: 40px;
-  background-color: #F2F2F2;
-}
-.header-left-input {
-  font-size: 18px;
-  height: 20px;
-  width: 100%;
-  background-color: transparent;
-  outline: none;
-  border: none;
-}
-.header-left-search {
-  margin: 0 10px;
-  &:hover {
-    cursor: pointer;
-  }
-}
-.header-right {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  text-align: center;
-  margin: 10px;
-}
-.header-right h1{
-  padding: 5px;
-  font-size: 15px;
-  font-weight: 600;
-}
-.header-right-status {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-}
-.header-right-profile {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-}
-.header-right-profile-photo {
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  border: 2px solid #FFE55F;
-  background-color: aqua;
-}
-
-/* Navigation */
-.navigation-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100vh;
-  width: 18%;
-  background-color: #FFE55F;
-  overflow: auto;
-}
-.navigation-logo {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: 15px 0 25px 0;
-}
-.navigation-logo h1 {
-  font-size: 42px;
-  font-weight: 900;
-  margin-left: 10px;
-}
-.navigation-logo h1:hover {
-  cursor: pointer;
-}
-.navigation-menu-item {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-  padding: 5px;
-  margin: 10px 5px;
-  border-radius: 10px;
-  user-select: none;
-
-  &.true {
-    margin-right: 0;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-    background-color: #FFFFFF;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-    
-    &::after {
-      content: ''; /* Adiciona o pseudo-elemento ::after */
-      position: absolute;
-      left: 17%; /* Ajuste para a largura do quadro branco */
-      width: 40px; /* Largura do quadro branco */
-      height: 54px; /* Altura igual à do item */
-      background-color: #FFFFFF; /* Cor do quadro branco */
-      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-      z-index: -1; /* Coloca o quadro branco atrás do conteúdo */
-    }
-  }
-}
-.navigation-menu-item h1 {
-  font-weight: bold;
-  margin-left: 5px;
-}
-.navigation-menu-item:hover  {
-  cursor: pointer;
-}
-
-/* Main */
-.main-container {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  justify-content: center;
-  align-items: center;
-  height: 84.5%;
-  width: 79.5%;
-  margin: 10px;
-  border-radius: 10px;
-  background-color: #FFFFFF;
-  overflow: auto;
-}
-.main-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 20px 0;
-}
-.main-content h1 {
-  margin-bottom: 600px;
-}
-.main-content h2 {
-  margin-top: 600px;
 }

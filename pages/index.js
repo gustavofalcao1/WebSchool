@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 
-import App from './app'
+import Verify from './verify'
 
 export default class extends Component {
   render () {
     return (
-      <App />
+      <Verify />
     )
   }
 }
