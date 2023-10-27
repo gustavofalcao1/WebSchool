@@ -6,47 +6,43 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import bcrypt from 'bcryptjs'
 
 const Add = ({setShowAdd}) => {
+  const [photoURL, setPhotoURL] = useState(null);
   const [formData, setFormData] = useState({
     displayName: '',
     email: '',
     password: '',
     group: '',
-    photoURL: '',
     process: '',
     sector: '',
     type: '',
     username: '',
     createAt: '',
-    updateAt: ''
-  });
+    updateAt: '',
+  })
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
   };
 
+  const handleImageUpload = (e) => {
+    if (e.target.files.length > 0) {
+      const imageFile = e.target.files[0]
+      setPhotoURL(imageFile);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const imageFile = formData.photoURL;
-    const imageType = imageFile.type;
-    const mimeTypeToExtension = {
-      'image/jpeg': 'jpeg',
-      'image/jpg': 'jpg',
-      'image/png': 'png',
-    };
-    if (mimeTypeToExtension[imageType]) {
-      const fileExtension = mimeTypeToExtension[imageType];
-      const imageRef = ref(storage, `public/${formData.process}.${fileExtension}`);
-      await uploadBytes(imageRef, imageFile);
-      const imageUrl = await getDownloadURL(imageRef);
-      console.log('URL da imagem:', imageUrl);
-    } else {
-      console.error('Tipo de arquivo não suportado');
-    }
 
-    const saltRounds = 10;
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const securityPassword = bcrypt.hashSync(formData.password, salt);
+    const imageRef = ref(storage, `public/${formData.process}`)
+    await uploadBytes(imageRef, photoURL)
+
+    const imageUrl = await getDownloadURL(imageRef)
+
+    const saltRounds = 10
+    const salt = bcrypt.genSaltSync(saltRounds)
+    const securityPassword = bcrypt.hashSync(formData.password, salt)
 
     const timestamp = new Date()
     try {
@@ -61,23 +57,24 @@ const Add = ({setShowAdd}) => {
         type: formData.type,
         username: formData.displayName.replace(/\s/g, '').toLowerCase(),
         createAt: timestamp,
-        updateAt: timestamp
+        updateAt: timestamp,
       };
 
-      const docRef = await addDoc(collection(db, "users"), data);
-      console.log(`Item adicionado ao Firestore com id: ${docRef.id}`);
+      const docRef = await addDoc(collection(db, 'users'), data)
+      console.log(`Item adicionado ao Firestore com id: ${docRef.id}`)
     } catch (error) {
-      console.error('Erro ao adicionar o item ', error);
+      console.error('Erro ao adicionar o item ', error)
     }
-    setShowAdd(false)
-  };
+
+    setShowAdd(false);
+  }
 
   return (
-    <div className='add-container'>
-      <form className="add-form" onSubmit={handleSubmit}>
-        <div className='add-tr 1'>
+    <div className='reg-container'>
+      <form className="reg-form" onSubmit={handleSubmit}>
+        <div className='reg-tr 1'>
           <input
-            className='add-input process'
+            className='reg-input process'
             placeholder={locale.pt.users.inputs.process}
             name="process"
             type="number"
@@ -85,7 +82,7 @@ const Add = ({setShowAdd}) => {
             onChange={handleChange}
           />
           <input
-            className='add-input name'
+            className='reg-input name'
             placeholder={locale.pt.users.inputs.name}
             name="displayName"
             type="text"
@@ -93,7 +90,7 @@ const Add = ({setShowAdd}) => {
             onChange={handleChange}
           />
           <select
-            className='add-input group'
+            className='reg-input group'
             name="group"
             type="button"
             value={formData.group}
@@ -104,9 +101,9 @@ const Add = ({setShowAdd}) => {
             <option value={locale.pt.users.inputs.group.nProf}>{locale.pt.users.inputs.group.nProf}</option>
           </select>
         </div>
-        <div className='add-tr 2'>
+        <div className='reg-tr 2'>
           <input
-            className='add-input email'
+            className='reg-input email'
             placeholder={locale.pt.users.inputs.email}
             name="email"
             type="email"
@@ -114,7 +111,7 @@ const Add = ({setShowAdd}) => {
             onChange={handleChange}
           />
           <select
-            className='add-input sector'
+            className='reg-input sector'
             name="sector"
             value={formData.sector}
             onChange={handleChange}
@@ -129,9 +126,9 @@ const Add = ({setShowAdd}) => {
             <option value={locale.pt.users.inputs.sector.security}>{locale.pt.users.inputs.sector.security}</option>
           </select>
         </div>
-        <div className='add-tr 3'>
+        <div className='reg-tr 3'>
           <input
-            className='add-input password'
+            className='reg-input password'
             placeholder={locale.pt.users.inputs.password}
             name="password"
             type="password"
@@ -139,7 +136,7 @@ const Add = ({setShowAdd}) => {
             onChange={handleChange}
           />
           <select
-            className='add-input type'
+            className='reg-input type'
             name="type"
             type="button"
             value={formData.type}
@@ -151,15 +148,15 @@ const Add = ({setShowAdd}) => {
             <option value='admin'>{locale.pt.users.inputs.type.admin}</option>
           </select>
           <input
-            className='add-input photoURL'
+            className='reg-input photoURL'
             placeholder={locale.pt.users.inputs.photoURL}
             name="photoURL"
             type="file"
-            value={formData.photoURL}
-            onChange={handleChange}
+            accept='image/*'
+            onChange={handleImageUpload}
           />
         </div>
-        <button className='add-submit' type="submit">{locale.pt.add.inputs.submit}</button>
+        <button className='reg-submit' type="submit">{locale.pt.add.inputs.submit}</button>
       </form>
     </div>
   )

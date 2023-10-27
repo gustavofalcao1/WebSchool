@@ -1,18 +1,21 @@
 import React, {useState} from 'react'
 import {locale} from '../../../../../public/locale'
-import {db} from '../../../../../api/firebase'
+import { db, storage } from '../../../../../api/firebase'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { doc, updateDoc } from 'firebase/firestore'
+import bcrypt from 'bcryptjs'
 
 const Edit = ({setShowEdit, data}) => {
+  const [photoURL, setPhotoURL] = useState(null);
   const [formData, setFormData] = useState({
-    code: data?.code,
-    name: data?.name,
-    place: data?.place,
-    description: data?.description,
+    displayName: data?.displayName,
+    email: data?.email,
+    password: data?.password,
+    group: data?.group,
+    process: data?.process,
+    sector: data?.sector,
     type: data?.type,
-    brand: data?.brand,
-    model: data?.model,
-    sn: data?.sn,
+    username: data?.username,
     createAt: data?.createAt,
     updateAt: data?.updateAt
   });
@@ -22,109 +25,139 @@ const Edit = ({setShowEdit, data}) => {
     setFormData({ ...formData, [name]: value })
   };
 
+  const handleImageUpload = (e) => {
+    if (e.target.files.length > 0) {
+      const imageFile = e.target.files[0]
+      setPhotoURL(imageFile);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    const imageRef = ref(storage, `public/${formData.process}`)
+    await uploadBytes(imageRef, photoURL)
+
+    const imageUrl = await getDownloadURL(imageRef)
+
+    const saltRounds = 10
+    const salt = bcrypt.genSaltSync(saltRounds)
+    const securityPassword = bcrypt.hashSync(formData.password, salt)
+
     const timestamp = new Date()
     try {
-      const itemRef = doc(db, 'items', data?.id);
+      const itemRef = doc(db, 'users', data?.id);
       const updatedData = {
-        code: formData.code,
-        name: formData.name,
-        place: formData.place,
-        description: formData.description,
+        displayName: formData.displayName,
+        email: formData.email,
+        password: securityPassword,
+        group: formData.group,
+        photoURL: imageUrl,
+        process: formData.process,
+        sector: formData.sector,
         type: formData.type,
-        brand: formData.brand,
-        model: formData.model,
-        sn: formData.sn,
-        createAt: formData.createAt?? timestamp,
-        updateAt: timestamp
+        username: formData.displayName.replace(/\s/g, '').toLowerCase(),
+        createAt: timestamp,
+        updateAt: timestamp,
       };
-  
+
       await updateDoc(itemRef, updatedData);  
-      console.log(`Item com ID ${data?.code} foi editado com sucesso.`);
+      console.log(`Item com ID ${data?.process} foi editado com sucesso.`);
     } catch (error) {
       console.error(`Erro ao editar o item com ID ${data?.code}:`, error);
     }
+
     setShowEdit(false)
   };
 
   return (
-    <div className='edit-container'>
-      <form className="edit-form" onSubmit={handleSubmit}>
-        <div className='edit-tr 1'>
+    <div className='reg-container'>
+      <form className="reg-form" onSubmit={handleSubmit}>
+        <div className='reg-tr 1'>
           <input
-            className='edit-input code'
-            placeholder={locale.pt.add.inputs.code}
-            name="code"
-            value={formData.code}
+            className='reg-input process'
+            placeholder={locale.pt.users.inputs.process}
+            name="process"
+            type="number"
+            value={formData.process}
             onChange={handleChange}
           />
           <input
-            className='edit-input name'
-            placeholder={locale.pt.add.inputs.name}
-            name="name"
-            value={formData.name}
+            className='reg-input name'
+            placeholder={locale.pt.users.inputs.name}
+            name="displayName"
+            type="text"
+            value={formData.displayName}
             onChange={handleChange}
           />
           <select
-            className='add-input place'
-            name="place"
-            value={formData.place}
+            className='reg-input group'
+            name="group"
+            type="button"
+            value={formData.group}
             onChange={handleChange}
           >
-            <option value=''>{locale.pt.add.inputs.place.default}</option>
-            <option value={locale.pt.add.inputs.place.sec}>{locale.pt.add.inputs.place.sec}</option>
-            <option value={locale.pt.add.inputs.place.stock}>{locale.pt.add.inputs.place.stock}</option>
+            <option value=''>{locale.pt.users.inputs.group.default}</option>
+            <option value={locale.pt.users.inputs.group.prof}>{locale.pt.users.inputs.group.prof}</option>
+            <option value={locale.pt.users.inputs.group.nProf}>{locale.pt.users.inputs.group.nProf}</option>
           </select>
         </div>
-        <div className='edit-tr 2'>
+        <div className='reg-tr 2'>
           <input
-            className='edit-input description'
-            placeholder={locale.pt.add.inputs.description}
-            name="description"
-            value={formData.description}
+            className='reg-input email'
+            placeholder={locale.pt.users.inputs.email}
+            name="email"
+            type="email"
+            value={formData.email}
             onChange={handleChange}
           />
           <select
-            className='add-input type'
+            className='reg-input sector'
+            name="sector"
+            value={formData.sector}
+            onChange={handleChange}
+          >
+            <option value=''>{locale.pt.users.inputs.sector.default}</option>
+            <option value={locale.pt.users.inputs.sector.sec}>{locale.pt.users.inputs.sector.sec}</option>
+            <option value={locale.pt.users.inputs.sector.admin}>{locale.pt.users.inputs.sector.admin}</option>
+            <option value={locale.pt.users.inputs.sector.it}>{locale.pt.users.inputs.sector.it}</option>
+            <option value={locale.pt.users.inputs.sector.edu}>{locale.pt.users.inputs.sector.edu}</option>
+            <option value={locale.pt.users.inputs.sector.account}>{locale.pt.users.inputs.sector.account}</option>
+            <option value={locale.pt.users.inputs.sector.clean}>{locale.pt.users.inputs.sector.clean}</option>
+            <option value={locale.pt.users.inputs.sector.security}>{locale.pt.users.inputs.sector.security}</option>
+          </select>
+        </div>
+        <div className='reg-tr 3'>
+          <input
+            className='reg-input password'
+            placeholder={locale.pt.users.inputs.password}
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <select
+            className='reg-input type'
             name="type"
+            type="button"
             value={formData.type}
             onChange={handleChange}
           >
-            <option value=''>{locale.pt.add.inputs.type.default}</option>
-            <option value={locale.pt.add.inputs.type.pc}>{locale.pt.add.inputs.type.pc}</option>
-            <option value={locale.pt.add.inputs.type.equipament}>{locale.pt.add.inputs.type.equipament}</option>
-            <option value={locale.pt.add.inputs.type.speak}>{locale.pt.add.inputs.type.speak}</option>
-            <option value={locale.pt.add.inputs.type.adpter}>{locale.pt.add.inputs.type.adpter}</option>
-            <option value={locale.pt.add.inputs.type.hardware}>{locale.pt.add.inputs.type.hardware}</option>
-            <option value={locale.pt.add.inputs.type.acessory}>{locale.pt.add.inputs.type.acessory}</option>
-            <option value={locale.pt.add.inputs.type.cable}>{locale.pt.add.inputs.type.cable}</option>
+            <option value='user'>{locale.pt.users.inputs.type.default}</option>
+            <option value='user'>{locale.pt.users.inputs.type.user}</option>
+            <option value='manager'>{locale.pt.users.inputs.type.manager}</option>
+            <option value='admin'>{locale.pt.users.inputs.type.admin}</option>
           </select>
-        </div>
-        <div className='edit-tr 3'>
           <input
-            className='edit-input brand'
-            placeholder={locale.pt.add.inputs.brand}
-            name="brand"
-            value={formData.brand}
-            onChange={handleChange}
-          />
-          <input
-            className='edit-input model'
-            placeholder={locale.pt.add.inputs.model}
-            name="model"
-            value={formData.model}
-            onChange={handleChange}
-          />
-          <input
-            className='edit-input sn'
-            placeholder={locale.pt.add.inputs.sn}
-            name="sn"
-            value={formData.sn}
-            onChange={handleChange}
+            className='reg-input photoURL'
+            placeholder={locale.pt.users.inputs.photoURL}
+            name="photoURL"
+            type="file"
+            accept='image/*'
+            onChange={handleImageUpload}
           />
         </div>
-        <button className='edit-submit' type="submit">{locale.pt.edit.inputs.submit}</button>
+        <button className='reg-submit' type="submit">{locale.pt.edit.inputs.submit}</button>
       </form>
     </div>
   )

@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import { MdOutlineModeEditOutline, MdDeleteOutline } from 'react-icons/md'
 import {db} from '../../../../../api/firebase'
-import { collection, onSnapshot, doc, orderBy, query } from 'firebase/firestore'
+import { collection, onSnapshot, doc, orderBy, query, deleteDoc } from 'firebase/firestore'
 import { locale } from '../../../../../public/locale'
 
 const Person = ({ user, filter, order, users, setUsers, editItem }) => {
   const [request, setRequest] = useState([]);
 
   const handleDelete = async (itemId) => {
+    console.log(itemId)
     try {
-      await deleteDoc(doc(db, "items", itemId))
+      await deleteDoc(doc(db, "users", itemId))
       console.log(`Item deletado do Firestore com ID: ${itemId}`)
     } catch (error) {
       console.error('Erro ao deletar o item: ', error)

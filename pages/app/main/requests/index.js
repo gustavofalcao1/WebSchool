@@ -129,7 +129,7 @@ const Requests = ({user}) => {
       </div>}
       {showAdd? <Add item={item} users={users} setShowAdd={setShowAdd} />:
       showHistory? <History order={order} filter={filter} />:
-      <Request user={user} setItem={setItem} setUsers={setUsers} filter={filter} order={order} />}
+      <Request user={user} users={users} setItem={setItem} setUsers={setUsers} filter={filter} order={order} />}
     </div>
   )
 }

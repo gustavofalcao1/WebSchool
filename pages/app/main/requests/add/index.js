@@ -13,8 +13,6 @@ const Add = ({ users, item, setShowAdd}) => {
     updateAt: ''
   });
 
-  console.log(item)
-
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
@@ -23,6 +21,7 @@ const Add = ({ users, item, setShowAdd}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const timestamp = new Date()
+    console.log(formData)
     try {
       const data = {
         codeItem: formData.codeItem,
