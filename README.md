@@ -2,7 +2,6 @@
 
 #### School Management
 
-
 ## Deploy
 ### Ubuntu
 git clone this project in /opt
