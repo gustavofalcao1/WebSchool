@@ -8,7 +8,6 @@ const Person = ({ user, filter, order, users, setUsers, editItem }) => {
   const [request, setRequest] = useState([]);
 
   const handleDelete = async (itemId) => {
-    console.log(itemId)
     try {
       await deleteDoc(doc(db, "users", itemId))
       console.log(`Item deletado do Firestore com ID: ${itemId}`)

@@ -80,8 +80,6 @@ const Request = ({ user, users, filter, order, setItem, setUsers }) => {
       getRequest()
     };
   }, [filter, order])
-
-  console.log(request)
   
   return (
     <div className="request-container">
