@@ -7,6 +7,7 @@
 ### Ubuntu
 git clone this project in /opt
 ``sudo nano /etc/systemd/system/school.service``
+
 past this:
 ``
 [Unit]
