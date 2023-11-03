@@ -1,3 +1,5 @@
+import React from 'react';
+
 import "../styles/index.css"
 import "../styles/app/index.css"
 import "../styles/app/loading.css"
@@ -13,6 +15,6 @@ import "../styles/main/inventory.css"
 import "../styles/main/users.css"
 import "../styles/main/rooms.css"
 
-export default function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
