@@ -77,7 +77,6 @@ const Edit = ({setShowEdit, data}) => {
             <option value=''>{locale.pt.add.inputs.place.default}</option>
             <option value={locale.pt.add.inputs.place.sec}>{locale.pt.add.inputs.place.sec}</option>
             <option value={locale.pt.add.inputs.place.stock}>{locale.pt.add.inputs.place.stock}</option>
-            <option value={locale.pt.add.inputs.place.damaged}>{locale.pt.add.inputs.place.damaged}</option>
           </select>
         </div>
         <div className='edit-tr 2'>

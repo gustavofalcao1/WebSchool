@@ -6,9 +6,11 @@ import { doc, updateDoc } from 'firebase/firestore'
 import bcrypt from 'bcryptjs'
 
 const Edit = ({setShowEdit, data}) => {
-  const [photoURL, setPhotoURL] = useState(null);
+  const [photoURL, setPhotoURL] = useState(null)
+  const [photoUpdate, setPhotoUpdate] = useState(false)
   const [formData, setFormData] = useState({
     displayName: data?.displayName,
+    photoURL: data?.photoURL,
     email: data?.email,
     password: data?.password,
     group: data?.group,
@@ -18,19 +20,20 @@ const Edit = ({setShowEdit, data}) => {
     username: data?.username,
     createAt: data?.createAt,
     updateAt: data?.updateAt
-  });
+  })
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
-  };
+  }
 
   const handleImageUpload = (e) => {
     if (e.target.files.length > 0) {
       const imageFile = e.target.files[0]
-      setPhotoURL(imageFile);
+      setPhotoURL(imageFile)
+      setPhotoUpdate(true)
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -52,14 +55,14 @@ const Edit = ({setShowEdit, data}) => {
         email: formData.email,
         password: securityPassword,
         group: formData.group,
-        photoURL: imageUrl,
+        photoURL: photoUpdate?imageUrl:data.photoURL,
         process: formData.process,
         sector: formData.sector,
         type: formData.type,
         username: formData.displayName.replace(/\s/g, '').toLowerCase(),
         createAt: timestamp,
         updateAt: timestamp,
-      };
+      }
 
       await updateDoc(itemRef, updatedData);  
       console.log(`Item com ID ${data?.process} foi editado com sucesso.`);
@@ -68,7 +71,7 @@ const Edit = ({setShowEdit, data}) => {
     }
 
     setShowEdit(false)
-  };
+  }
 
   return (
     <div className='reg-container'>

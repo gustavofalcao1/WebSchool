@@ -49,6 +49,7 @@ const Requests = ({user}) => {
             <MdAdd className="icon" onClick={addItem} size={40} />
           </div>}
         </div>
+        {/*
         <div className='requests-actions'>
           <div className='requests-filter'>
             <h1>{locale.pt.requests.actions.filter.title}</h1>
@@ -83,11 +84,13 @@ const Requests = ({user}) => {
             </select>
           </div>
         </div>
+        */}
       </div>:
       <div className="requests-content">
         <div className='requests-header'>
           <h1>{locale.pt.navigation.requests}</h1>
         </div>
+        {/*
         <div className='requests-actions'>
           <div className='requests-filter'>
             <h1>{locale.pt.requests.actions.filter.title}</h1>
@@ -126,6 +129,7 @@ const Requests = ({user}) => {
             </select>
           </div>
         </div>
+        */}
       </div>}
       {showAdd? <Add item={item} users={users} setShowAdd={setShowAdd} />:
       showHistory? <History order={order} filter={filter} />:

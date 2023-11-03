@@ -1,42 +1,42 @@
-/* Inventory */
-.inventory-container {
+/* rooms */
+.rooms-container {
   width: 96%;
   display: flex;
   flex-direction: column;
 }
-.inventory-container h1 {
+.rooms-container h1 {
   font-size: 4em;
 }
-.inventory-header {
+.rooms-header {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.inventory-header .icon {
+.rooms-header .icon {
   margin: 0 5px;
   cursor: pointer;
 }
-.inventory-actions {
+.rooms-actions {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   margin: 10px 10px;
 }
-.inventory-filter {
+.rooms-filter {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin: 0 5px;
 }
-.inventory-filter h1 {
+.rooms-filter h1 {
   font-size: 1.6em;
   margin-right: 10px;
 }
-.inventory-filter-select {
+.rooms-filter-select {
   height: 30px;
   padding: 2px 5px;
   text-align: center;
@@ -48,21 +48,21 @@
   border-radius: 5px;
   border: none;
 }
-.inventory-filter-select:focus {
+.rooms-filter-select:focus {
   border: none;
 }
-.inventory-order {
+.rooms-order {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin: 0 5px;
 }
-.inventory-order h1 {
+.rooms-order h1 {
   font-size: 1.6em;
   margin-right: 10px;
 }
-.inventory-order-select {
+.rooms-order-select {
   height: 30px;
   padding: 2px 5px;
   text-align: center;
@@ -74,49 +74,49 @@
   border-radius: 5px;
   border: none;
 }
-.inventory-order-select:focus {
+.rooms-order-select:focus {
   border: none;
 }
 
 /* Items */
-.items-container {
+.room-container {
   overflow: auto;
   padding: 10px;
 }
-.items-table {
+.room-table {
   display: block;
   width: 100%;
 }
-.items-title th {
+.room-title th {
   font-size: 1.8em;
   font-weight: 800;
   color: var(--text-dark);
   background-color: var(--primary);
   padding: 2px 15px;
 }
-.items-content td {
+.room-content td {
   text-align: center;
   justify-content: center;
   font-size: 1.4em;
   border: 1px solid var(--primary);
   padding: 2px 15px;
 }
-.items-content td .icon {
+.room-content td .icon {
   font-size: 2em;
   color: var(--primary);
   cursor: pointer;
 }
-.items-content td .icon:hover {
+.room-content td .icon:hover {
   color: var(--text);
 }
-.items-content td img {
+.room-content td img {
   align-self: center;
   justify-self: center;
   cursor: pointer;
   object-fit: contain;
   object-position: center;
 }
-.items-buttons {
+.room-buttons {
   padding: 0 5px !important;
   border: none !important;
 }
@@ -161,14 +161,15 @@
   border: none;
   box-shadow: 2px 4px 6px -2px var(--box-shadow);
 }
-.add-input.place {
-  height: 50px;
-  padding: 5px 15px;
-  cursor: pointer;
-  appearance: none;
+.add-input::-webkit-outer-spin-button,
+.add-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+  margin: 0;
 }
-.add-input.type {
+.add-input.place,
+.add-input.cable,
+.add-input.project,
+.add-input.floor {
   height: 50px;
   padding: 5px 15px;
   cursor: pointer;

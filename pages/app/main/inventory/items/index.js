@@ -43,6 +43,7 @@ const Items = ({user, filter, order, editItem}) => {
         <thead className="items-title">
           <tr>
             <th>{locale.pt.inventory.items.code}</th>
+            <th>{locale.pt.inventory.items.img}</th>
             <th>{locale.pt.inventory.items.name}</th>
             <th>{locale.pt.inventory.items.place}</th>
             <th>{locale.pt.inventory.items.type}</th>
@@ -56,6 +57,7 @@ const Items = ({user, filter, order, editItem}) => {
           {items?.map((item, index) => (
             <tr key={index}>
               <td>{item.code}</td>
+              <td><img src={item.img} width={40} height={40} alt='item image' /></td>
               <td>{item.name}</td>
               <td>{item.place}</td>
               <td>{item.type}</td>
@@ -75,7 +77,6 @@ const Items = ({user, filter, order, editItem}) => {
           ))}
         </tbody>
       </table>
-
     </div>
   )
 }

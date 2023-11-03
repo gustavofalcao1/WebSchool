@@ -2,6 +2,7 @@
   "navigation": {
     "requests": "Requisições",
     "inventory": "Inventário",
+    "rooms": "Salas",
     "users": "Utilizadores",
     "tools": "Ferramentas",
     "settings": "Definições"
@@ -18,7 +19,9 @@
   "requests": {
     "request": {
       "code": "Código",
+      "item": "Item",
       "requester": "Requerente",
+      "foto": "Foto",
       "reqAt": "Data da Requisição",
       "resAt": "Data da Devolução",
       "edit": "Ações",
@@ -38,6 +41,7 @@
   "inventory": {
     "items": {
       "code": "Código",
+      "img": "Item",
       "name": "Nome",
       "type": "Tipo",
       "place": "Local",
@@ -45,6 +49,28 @@
       "brand": "Marca",
       "model": "Modelo",
       "sn": "SN",
+      "edit": "Editar"
+    },
+    "actions": {
+      "filter": {
+        "title": "Filtrar por:",
+        "default": "Todos"
+      },
+      "order": {
+        "title": "Ordernar por:",
+        "default": "Código"
+      }
+    }
+  },
+  "rooms": {
+    "room": {
+      "code": "Código",
+      "name": "Nome",
+      "floor": "Piso",
+      "place": "Local",
+      "project": "Projetor",
+      "cable": "Cabo",
+      "computers": "Computadores",
       "edit": "Editar"
     },
     "actions": {
@@ -66,10 +92,29 @@
     "inputs": {
       "code": "Código",
       "name": "Nome",
+      "floor": {
+        "default": "Piso",
+        "zero": "Piso 0",
+        "one": "Piso 1"
+      },
+      "cable": {
+        "default": "Cabo",
+        "hdmi": "HDMI",
+        "vga": "VGA"
+      },
+      "project": {
+        "default": "Projetor",
+        "yes": "Sim",
+        "no": "Não"
+      },
+      "computers": "Computadores",
       "place": {
         "default": "Local",
         "sec": "Secretaria",
-        "stock": "Reprografia"
+        "stock": "Reprografia",
+        "damaged": "Avariado",
+        "epad": "EPAD Gaia",
+        "pav": "Pavilhão"
       },
       "type": {
         "default": "Tipo",
@@ -91,6 +136,7 @@
       "brand": "Marca",
       "model": "Modelo",
       "sn": "SN",
+      "img": "Link da imagem do item",
       "submit": "Adicionar"
     }
   },
@@ -103,6 +149,7 @@
   "users": {
     "inputs": {
       "process": "Número",
+      "img": "Foto",
       "name": "Nome",
       "email": "Email",
       "password": "Palavra-passe",

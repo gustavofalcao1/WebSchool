@@ -6,13 +6,8 @@ import {locale} from '../../../public/locale'
 import Alert from '../../components/alert'
 
 const Header = ({user}) => {
-  const [dropMenu, setDropMenu] = useState(false)
   const [alert, setAlert] = useState(false)
   const [data, setData] = useState(null)
-
-  const handleDropMenu = () => {
-    setDropMenu(!dropMenu)
-  }
 
   const handleLogout = () => {
     const item = {
@@ -32,9 +27,7 @@ const Header = ({user}) => {
 
   return (
     <div className="header-container">
-      {alert && (
-            <Alert data={data} setAlert={setAlert} />
-          )}
+      {alert && <Alert data={data} setAlert={setAlert} />}
       <div className="header-left">
         <input className="header-left-input" placeholder={locale.pt.header.search.placeholder}></input>
         <div className="header-left-search">
@@ -45,20 +38,12 @@ const Header = ({user}) => {
         <div className="header-right-status">
           <MdNotifications className="icon" size={28} />
         </div>
-        <div className="header-right-profile" onClick={handleDropMenu}>  
+        <div className="header-right-profile">  
           <div className="header-right-profile-photo">
             <img src={user?.photoURL} />
           </div>
           <h1>{user?.displayName}</h1>
           <RiLogoutCircleRLine className="icon logout" size={22} onClick={handleLogout} />
-          {dropMenu && (
-            <div className="header-right-profile-dropdown-menu">
-              <ul>
-                <li>{locale.pt.header.profile.account}</li>
-                <li onClick={handleLogout}>{locale.pt.header.profile.logout}</li>
-              </ul>
-            </div>
-          )}
         </div>
       </div>
     </div>

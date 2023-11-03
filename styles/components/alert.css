@@ -51,9 +51,9 @@
   border-radius: 5px;
   border: 2px solid transparent;
   box-shadow: 2px 4px 6px -2px var(--box-shadow);
+  cursor: pointer;
 }
 .alert-confirm:hover {
-  cursor: pointer;
   color: var(--primary);
   background-color: var(--box-background);
   border: 2px solid var(--primary);
@@ -69,9 +69,9 @@
   border-radius: 5px;
   border: 2px solid transparent;
   box-shadow: 2px 4px 6px -2px var(--box-shadow);
+  cursor: pointer;
 }
 .alert-cancel:hover {
-  cursor: pointer;
   color: var(--text);
   background-color: var(--box-background);
   border: 2px solid var(--text);

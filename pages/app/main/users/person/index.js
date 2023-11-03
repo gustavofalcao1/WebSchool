@@ -54,6 +54,7 @@ const Person = ({ user, filter, order, users, setUsers, editItem }) => {
         <thead className="person-title">
           <tr>
             <th>{locale.pt.users.inputs.process}</th>
+            <th>{locale.pt.users.inputs.img}</th>
             <th>{locale.pt.users.inputs.name}</th>
             <th>{locale.pt.users.inputs.email}</th>
             <th>{locale.pt.users.inputs.group.default}</th>
@@ -65,6 +66,7 @@ const Person = ({ user, filter, order, users, setUsers, editItem }) => {
           {users?.map((item, index) => (
             <tr key={index}>
               <td>{item.process}</td>
+              <td><img src={item.photoURL} width={40} height={40} alt='user image' /></td>
               <td>{item.displayName}</td>
               <td>{item.email}</td>
               <td>{item.group}</td>

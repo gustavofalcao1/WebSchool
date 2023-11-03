@@ -16,8 +16,6 @@
 }
 .users-header .icon {
   margin: 0 5px;
-}
-.users-header .icon:hover {
   cursor: pointer;
 }
 .users-actions {
@@ -102,10 +100,17 @@
 .person-content td .icon {
   font-size: 2.2em;
   color: var(--primary);
+  cursor: pointer;
 }
 .person-content td .icon:hover {
-  cursor: pointer;
   color: var(--text);
+}
+.person-content td img {
+  align-self: center;
+  justify-self: center;
+  cursor: pointer;
+  object-fit: contain;
+  object-position: center;
 }
 .person-buttons {
   padding: 0 5px !important;
@@ -181,9 +186,9 @@
   border-radius: 5px;
   border: 2px solid transparent;
   box-shadow: 2px 4px 6px -2px var(--box-shadow);
+  cursor: pointer;
 }
 .reg-submit:hover {
-  cursor: pointer;
   color: var(--primary);
   background-color: var(--box-background);
   border: 2px solid var(--primary);

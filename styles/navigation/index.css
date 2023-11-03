@@ -14,6 +14,7 @@
   align-items: center;
   text-align: center;
   margin: 15px 0 25px 0;
+  cursor: pointer;
 }
 .navigation-logo h1,
 .navigation-logo .icon {
@@ -21,9 +22,6 @@
   font-weight: 900;
   margin-left: 10px;
   color: var(--text-dark);
-}
-.navigation-logo h1:hover {
-  cursor: pointer;
 }
 .navigation-menu {
   display: flex;
@@ -44,6 +42,7 @@
   margin: 10px 5px;
   border-radius: 10px;
   user-select: none;
+  cursor: pointer;
 
   &.true {
     margin-right: 0;
@@ -79,7 +78,4 @@
   font-weight: bold;
   color: var(--text-dark);
   margin-left: 5px;
-}
-.navigation-menu-item:hover  {
-  cursor: pointer;
 }

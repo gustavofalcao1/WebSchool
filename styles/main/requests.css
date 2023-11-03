@@ -16,8 +16,6 @@
 }
 .requests-header .icon {
   margin: 0 5px;
-}
-.requests-header .icon:hover {
   cursor: pointer;
 }
 .requests-actions {
@@ -86,7 +84,7 @@
   padding: 10px;
 }
 .request-title th {
-  font-size: 1.8em;
+  font-size: 2.2em;
   font-weight: 800;
   color: var(--text-dark);
   background-color: var(--primary);
@@ -95,17 +93,24 @@
 .request-content td {
   text-align: center;
   justify-content: center;
-  font-size: 1.4em;
+  font-size: 2.0em;
   border: 1px solid var(--primary);
   padding: 5px 15px;
 }
 .request-content td .icon {
   font-size: 2.2em;
   color: var(--secondary);
+  cursor: pointer;
 }
 .request-content td .icon:hover {
-  cursor: pointer;
   color: var(--primary);
+}
+.request-content td img {
+  align-self: center;
+  justify-self: center;
+  cursor: pointer;
+  object-fit: contain;
+  object-position: center;
 }
 .request-buttons {
   padding: 0 5px !important;
@@ -181,9 +186,9 @@
   border-radius: 5px;
   border: 2px solid transparent;
   box-shadow: 2px 4px 6px -2px var(--box-shadow);
+  cursor: pointer;
 }
 .add-submit:hover {
-  cursor: pointer;
   color: var(--primary);
   background-color: var(--box-background);
   border: 2px solid var(--primary);

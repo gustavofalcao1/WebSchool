@@ -6,6 +6,7 @@ import { collection, addDoc } from 'firebase/firestore'
 const Add = ({setShowAdd}) => {
   const [formData, setFormData] = useState({
     code: '',
+    img: '',
     name: '',
     place: '',
     description: '',
@@ -28,6 +29,7 @@ const Add = ({setShowAdd}) => {
     try {
       const data = {
         code: formData.code,
+        img: formData.img,
         name: formData.name,
         place: formData.place,
         description: formData.description,
@@ -74,6 +76,7 @@ const Add = ({setShowAdd}) => {
             <option value=''>{locale.pt.add.inputs.place.default}</option>
             <option value={locale.pt.add.inputs.place.sec}>{locale.pt.add.inputs.place.sec}</option>
             <option value={locale.pt.add.inputs.place.stock}>{locale.pt.add.inputs.place.stock}</option>
+            <option value={locale.pt.add.inputs.place.damaged}>{locale.pt.add.inputs.place.damaged}</option>
           </select>
         </div>
         <div className='add-tr 2'>
@@ -120,6 +123,15 @@ const Add = ({setShowAdd}) => {
             placeholder={locale.pt.add.inputs.sn}
             name="sn"
             value={formData.sn}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='add-tr 4'>
+          <input
+            className='add-input img'
+            placeholder={locale.pt.add.inputs.img}
+            name="img"
+            value={formData.img}
             onChange={handleChange}
           />
         </div>
