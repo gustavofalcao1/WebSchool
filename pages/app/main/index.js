@@ -6,6 +6,7 @@ import Rooms from './rooms'
 import Users from './users'
 import Tools from './tools'
 import Settings from './settings'
+import NotFold from './404'
 
 const Main = ({user, content}) => {
   return (
@@ -18,7 +19,7 @@ const Main = ({user, content}) => {
           content == 3?<Users user={user} />:
           content == 4?<Tools />:
           content == 5?<Settings />:
-          <Dashboard />
+          <NotFold />
         }
       </div>
     </div>
