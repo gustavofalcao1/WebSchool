@@ -1,18 +1,20 @@
-import React, {useState} from 'react'
-import {locale} from '../../../../../public/locale'
-import { db, storage } from '../../../../../api/firebase'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { doc, updateDoc } from 'firebase/firestore'
-import bcrypt from 'bcryptjs'
+import React, { useState } from 'react';
+import { locale } from '../../../../../public/locale';
+import { db, storage } from '../../../../../api/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { doc, updateDoc } from 'firebase/firestore';
+import bcrypt from 'bcryptjs';
 
-const Edit = ({setShowEdit, data}) => {
-  const [photoURL, setPhotoURL] = useState(null)
-  const [photoUpdate, setPhotoUpdate] = useState(false)
+import Alert from '../../../../components/alert';
+
+const Edit = ({ setShowEdit, data }) => {
+  const [photoURL, setPhotoURL] = useState(null);
+  const [photoUpdate, setPhotoUpdate] = useState(false);
   const [formData, setFormData] = useState({
     displayName: data?.displayName,
     photoURL: data?.photoURL,
     email: data?.email,
-    password: data?.password,
+    password: '', // Mantenha a senha vazia inicialmente
     group: data?.group,
     process: data?.process,
     sector: data?.sector,
@@ -20,62 +22,111 @@ const Edit = ({setShowEdit, data}) => {
     username: data?.username,
     createAt: data?.createAt,
     updateAt: data?.updateAt
-  })
+  });
+
+  const [passwordChanged, setPasswordChanged] = useState(false);
+
+  const [alert, setAlert] = useState(false);
+  const [dataAlert, setDataAlert] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Se o nome do campo for 'password', defina passwordChanged como true
+    if (name === 'password') {
+      setPasswordChanged(true);
+    }
+  };
 
   const handleImageUpload = (e) => {
     if (e.target.files.length > 0) {
-      const imageFile = e.target.files[0]
-      setPhotoURL(imageFile)
-      setPhotoUpdate(true)
+      const imageFile = e.target.files[0];
+      setPhotoURL(imageFile);
+      setPhotoUpdate(true);
     }
-  }
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmit = async () => {
+    const imageRef = ref(storage, `public/${formData.process}`);
+    if (photoUpdate) {
+      await uploadBytes(imageRef, photoURL);
+    }
 
-    const imageRef = ref(storage, `public/${formData.process}`)
-    await uploadBytes(imageRef, photoURL)
+    const imageUrl = photoUpdate ? await getDownloadURL(imageRef) : formData.photoURL;
 
-    const imageUrl = await getDownloadURL(imageRef)
-
-    const saltRounds = 10
-    const salt = bcrypt.genSaltSync(saltRounds)
-    const securityPassword = bcrypt.hashSync(formData.password, salt)
-
-    const timestamp = new Date()
+    const timestamp = new Date();
     try {
       const itemRef = doc(db, 'users', data?.id);
       const updatedData = {
         displayName: formData.displayName,
         email: formData.email,
-        password: securityPassword,
+        // Verifica se a senha foi alterada
+        password: passwordChanged ? bcrypt.hashSync(formData.password, bcrypt.genSaltSync(10)) : data.password,
         group: formData.group,
-        photoURL: photoUpdate?imageUrl:data.photoURL,
+        photoURL: imageUrl,
         process: formData.process,
         sector: formData.sector,
         type: formData.type,
         username: formData.displayName.replace(/\s/g, '').toLowerCase(),
         createAt: timestamp,
         updateAt: timestamp,
+      };
+
+      // Remove campos não modificados
+      for (const key in updatedData) {
+        if (updatedData[key] === data[key]) {
+          delete updatedData[key];
+        }
       }
 
-      await updateDoc(itemRef, updatedData);  
+      await updateDoc(itemRef, updatedData);
       console.log(`Item com ID ${data?.process} foi editado com sucesso.`);
     } catch (error) {
       console.error(`Erro ao editar o item com ID ${data?.code}:`, error);
     }
 
-    setShowEdit(false)
-  }
+    setShowEdit(false);
+    setAlert(false);
+  };
+
+
+  const handleConfirm = () => {
+    handleSubmit();
+    setAlert(false); // Fecha o alerta após a confirmação
+  };
+
+  const handleAlert = (e) => {
+    e.preventDefault();
+  
+    const itemsToChange = [];
+  
+    for (const key in formData) {
+      // Verifica se o valor em formData é diferente do valor correspondente em data
+      if (formData[key] !== data[key]) {
+        // Obtém o nome do campo do arquivo de localização
+        const fieldName = locale.pt.users.inputs[key];
+        // Adiciona o item à lista de itens a serem alterados
+        itemsToChange.push(`${fieldName}: ${formData[key]}`);
+      }
+    }
+  
+    const item = {
+      title: 'Tens a certeza?',
+      text: 'Tens a certeza, que queres alterar dados da conta:',
+      name: data?.displayName,
+      list_text: 'Os dados que serão alterados:',
+      item: itemsToChange,
+      button: handleConfirm
+    };
+    setDataAlert(item);
+    setAlert(true);
+  };  
 
   return (
     <div className='reg-container'>
-      <form className="reg-form" onSubmit={handleSubmit}>
+      {alert && <Alert data={dataAlert} setAlert={setAlert} />}
+      <div className="reg-form">
         <div className='reg-tr 1'>
           <input
             className='reg-input process'
@@ -160,11 +211,10 @@ const Edit = ({setShowEdit, data}) => {
             onChange={handleImageUpload}
           />
         </div>
-        <button className='reg-submit' type="submit">{locale.pt.edit.inputs.submit}</button>
-      </form>
+        <button className='reg-submit' type="button" onClick={handleAlert}>{locale.pt.edit.inputs.submit}</button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Edit
-
+export default Edit;
