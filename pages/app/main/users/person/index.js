@@ -4,8 +4,12 @@ import {db} from '../../../../../api/firebase'
 import { collection, onSnapshot, doc, orderBy, query, deleteDoc } from 'firebase/firestore'
 import { locale } from '../../../../../public/locale'
 
+import Zoom from '../../../../components/zoom';
+
 const Person = ({ user, filter, order, users, setUsers, editItem }) => {
-  const [request, setRequest] = useState([]);
+  const [person, setPerson] = useState([]);
+  const [data, setData] = useState([]);
+  const [zoom, setZoom] = useState(false);
 
   const handleDelete = async (itemId) => {
     try {
@@ -14,6 +18,15 @@ const Person = ({ user, filter, order, users, setUsers, editItem }) => {
     } catch (error) {
       console.error('Erro ao deletar o item: ', error)
     }
+  }
+
+  const zoomPhoto = (e) => {
+    const item = {
+      photoURL: e,
+    };
+    console.log(item)
+    setData(item);
+    setZoom(true);
   }
 
   useEffect(() => {
@@ -26,7 +39,7 @@ const Person = ({ user, filter, order, users, setUsers, editItem }) => {
       setUsers(updateRequest);
     });
 
-    const getRequest = onSnapshot(query(collection(db, 'requests'), orderBy(order)), (querySnapshot) => {
+    const getRequest = onSnapshot(query(collection(db, 'users'), orderBy(order)), (querySnapshot) => {
       const updateRequest = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
@@ -38,7 +51,7 @@ const Person = ({ user, filter, order, users, setUsers, editItem }) => {
           updateRequest.push({ id: doc.id, ...data });
         }
       });
-      setRequest(updateRequest);
+      setPerson(updateRequest);
     });
   
     return () => {
@@ -49,6 +62,7 @@ const Person = ({ user, filter, order, users, setUsers, editItem }) => {
   
   return (
     <div className="person-container">
+      {zoom && <Zoom data={data} setZoom={setZoom} />}
       <table className="person-table">
         <thead className="person-title">
           <tr>
@@ -65,7 +79,7 @@ const Person = ({ user, filter, order, users, setUsers, editItem }) => {
           {users?.map((item, index) => (
             <tr key={index}>
               <td>{item.process}</td>
-              <td><img src={item.photoURL} width={40} height={40} alt='user image' /></td>
+              <td><img src={item.photoURL} onClick={() => zoomPhoto(item.photoURL)} width={40} height={40} alt='user image' /></td>
               <td>{item.displayName}</td>
               <td>{item.email}</td>
               <td>{item.group}</td>

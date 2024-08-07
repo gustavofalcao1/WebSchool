@@ -182,6 +182,16 @@
         "default": "Utilizador"
       },
       "submit": "Adicionar"
+    },
+    "actions": {
+      "filter": {
+        "title": "Filtrar por:",
+        "default": "Todos"
+      },
+      "order": {
+        "title": "Ordernar por:",
+        "default": "Código"
+      }
     }
   },
   "login": {

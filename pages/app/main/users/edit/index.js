@@ -25,6 +25,7 @@ const Edit = ({ setShowEdit, data }) => {
   });
 
   const [passwordChanged, setPasswordChanged] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
 
   const [alert, setAlert] = useState(false);
   const [dataAlert, setDataAlert] = useState(null);
@@ -33,9 +34,8 @@ const Edit = ({ setShowEdit, data }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    // Se o nome do campo for 'password', defina passwordChanged como true
     if (name === 'password') {
-      setPasswordChanged(true);
+      setPasswordChanged(passwordFocused); // Altere passwordChanged apenas se o campo de senha estiver em foco
     }
   };
 
@@ -45,6 +45,14 @@ const Edit = ({ setShowEdit, data }) => {
       setPhotoURL(imageFile);
       setPhotoUpdate(true);
     }
+  };
+
+  const handlePasswordFocus = () => {
+    setPasswordFocused(true);
+  };
+
+  const handlePasswordBlur = () => {
+    setPasswordFocused(false);
   };
 
   const handleSubmit = async () => {
@@ -90,7 +98,6 @@ const Edit = ({ setShowEdit, data }) => {
     setAlert(false);
   };
 
-
   const handleConfirm = () => {
     handleSubmit();
     setAlert(false); // Fecha o alerta após a confirmação
@@ -105,9 +112,39 @@ const Edit = ({ setShowEdit, data }) => {
       // Verifica se o valor em formData é diferente do valor correspondente em data
       if (formData[key] !== data[key]) {
         // Obtém o nome do campo do arquivo de localização
-        const fieldName = locale.pt.users.inputs[key];
-        // Adiciona o item à lista de itens a serem alterados
-        itemsToChange.push(`${fieldName}: ${formData[key]}`);
+        let fieldName;
+        switch (key) {
+          case 'displayName':
+            fieldName = locale.pt.users.inputs.name;
+            break;
+          case 'email':
+            fieldName = locale.pt.users.inputs.email;
+            break;
+          case 'password':
+            fieldName = locale.pt.users.inputs.password;
+            break;
+          case 'group':
+            fieldName = locale.pt.users.inputs.group.default;
+            break;
+          case 'photoURL':
+            fieldName = locale.pt.users.inputs.photoURL;
+            break;
+          case 'process':
+            fieldName = locale.pt.users.inputs.process;
+            break;
+          case 'sector':
+            fieldName = locale.pt.users.inputs.sector.default;
+            break;
+          case 'type':
+            fieldName = locale.pt.users.inputs.type.default;
+            break;
+          // Adicione casos para outros campos conforme necessário
+          default:
+            fieldName = '';
+        }
+        if (fieldName) { // Verifica se o fieldName não está vazio antes de adicionar
+          itemsToChange.push(fieldName);
+        }
       }
     }
   
@@ -189,6 +226,8 @@ const Edit = ({ setShowEdit, data }) => {
             type="password"
             value={formData.password}
             onChange={handleChange}
+            onFocus={handlePasswordFocus} // Adiciona manipulador de evento de foco
+            onBlur={handlePasswordBlur} // Adiciona manipulador de evento de desfoque
           />
           <select
             className='reg-input type'

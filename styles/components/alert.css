@@ -28,6 +28,11 @@
 }
 .alert-main {
   display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+.alert-message {
+  display: flex;
   flex-direction: row;
   margin: 10px;
 }
@@ -39,6 +44,16 @@
   font-size: 1.6em;
   font-weight: 800;
   margin: 2px;
+}
+.alert-list {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+.alert-item {
+  font-size: 1.6em;
+  font-weight: 800;
+  margin: 2px 2px 2px 20px;
 }
 .alert-confirm {
   color: var(--text-dark);

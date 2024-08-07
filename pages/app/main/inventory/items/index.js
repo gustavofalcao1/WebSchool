@@ -4,8 +4,12 @@ import {db} from '../../../../../api/firebase'
 import { collection, onSnapshot, doc, deleteDoc, orderBy, query } from 'firebase/firestore'
 import { locale } from '../../../../../public/locale'
 
+import Zoom from '../../../../components/zoom';
+
 const Items = ({user, filter, order, editItem}) => {
   const [items, setItems] = useState([]);
+  const [data, setData] = useState([]);
+  const [zoom, setZoom] = useState(false);
 
   const handleDelete = async (itemId) => {
     try {
@@ -14,6 +18,14 @@ const Items = ({user, filter, order, editItem}) => {
     } catch (error) {
       console.error('Erro ao deletar o item: ', error)
     }
+  }
+
+  const zoomPhoto = (e) => {
+    const item = {
+      photoURL: e,
+    };
+    setData(item);
+    setZoom(true);
   }
 
   useEffect(() => {
@@ -39,6 +51,7 @@ const Items = ({user, filter, order, editItem}) => {
   
   return (
     <div className="items-container">
+      {zoom && <Zoom data={data} setZoom={setZoom} />}
       <table className="items-table">
         <thead className="items-title">
           <tr>
@@ -57,7 +70,7 @@ const Items = ({user, filter, order, editItem}) => {
           {items?.map((item, index) => (
             <tr key={index}>
               <td>{item.code}</td>
-              <td><img src={item.img} width={40} height={40} alt='item image' /></td>
+              <td><img src={item.img} onClick={() => zoomPhoto(item.img)} width={40} height={40} alt='item image' /></td>
               <td>{item.name}</td>
               <td>{item.place}</td>
               <td>{item.type}</td>

@@ -5,16 +5,22 @@ import { collection, onSnapshot, doc, updateDoc, orderBy, query } from 'firebase
 import { locale } from '../../../../../public/locale'
 
 import Alert from '../../../../components/alert'
+import Zoom from '../../../../components/zoom';
 
 const Request = ({ user, users, filter, order, setItem, setUsers }) => {
   const [request, setRequest] = useState([])
   const [alert, setAlert] = useState(false)
   const [data, setData] = useState(null)
+  const [dataZoom, setDataZoom] = useState([]);
+  const [zoom, setZoom] = useState(false);
 
-  const handleRes = (requestId) => {
+  const handleRes = (requestId, itemID, itemName) => {
+    const itemTotal = `Codigo: ${itemID} | Nome: ${itemName}`
     const item = {
       title: 'Tens a certeza?',
-      text: 'Tens a certeza, que queres devolver o item:',
+      text: 'Tens a certeza, que o utilizador:',
+      list_text: 'Está a devolver:',
+      item: [itemTotal],
       name: user?.displayName,
       button: () => handleConfirm(requestId)
     }
@@ -37,6 +43,15 @@ const Request = ({ user, users, filter, order, setItem, setUsers }) => {
     } catch (error) {
       console.error(`Erro ao editar o item com ID ${requestId}:`, error)
     }
+  }
+
+  const zoomPhoto = (e) => {
+    const item = {
+      photoURL: e,
+    };
+    console.log(item)
+    setDataZoom(item);
+    setZoom(true);
   }
 
   useEffect(() => {
@@ -84,6 +99,7 @@ const Request = ({ user, users, filter, order, setItem, setUsers }) => {
   return (
     <div className="request-container">
       {alert && <Alert data={data} setAlert={setAlert} />}
+      {zoom && <Zoom data={dataZoom} setZoom={setZoom} />}
       <table className="request-table">
         <thead className="request-title">
           <tr>
@@ -99,13 +115,13 @@ const Request = ({ user, users, filter, order, setItem, setUsers }) => {
             item.resAt === null?
               <tr key={index}>
                 <td>{item.item.code}</td>
-                <td><img src={item.item.img} width={40} height={40} alt='item image' /></td>
+                <td><img src={item.item.img} onClick={() => zoomPhoto(item.item.img)} width={40} height={40} alt='item image' /></td>
                 <td>{item.user.displayName}</td>
-                <td><img src={item.user.photoURL} width={40} height={40} alt='user photo' /></td>
+                <td><img src={item.user.photoURL} onClick={() => zoomPhoto(item.user.photoURL)} width={40} height={40} alt='user photo' /></td>
                 <td>{item.reqAt.toDate().toLocaleString()}</td>
                 {user?.type=='admin'||user?.type=='manager'?
                 <td className='request-buttons'>
-                  <MdDoneAll className='icon' onClick={() => handleRes(item.id)} />
+                  <MdDoneAll className='icon' onClick={() => handleRes(item.id, item.item.code, item.item.name)} />
                 </td>:null}
               </tr>
             :null

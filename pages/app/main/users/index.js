@@ -43,59 +43,63 @@ const Users = ({user}) => {
         <div className='users-header'>
           {showAdd?<h1>{locale.pt.add.title}</h1>:
           showEdit?<h1>{locale.pt.edit.title}</h1>:
-          <h1>{locale.pt.navigation.requests}</h1>}
+          <h1>{locale.pt.navigation.users}</h1>}
           {showAdd||showEdit?<MdClose className="icon" onClick={close} size={40} />:
           <MdAdd className="icon" onClick={addItem} size={40} />}
         </div>
         <div className='users-actions'>
-          <div className='users-filter'>
-            <h1>{locale.pt.requests.actions.filter.title}</h1>
-            <select
-              className='users-filter-select'
-              name="filter"
-              value={filter}
-              onChange={handleFilter}
-            >
-              <option value=''>{locale.pt.requests.actions.filter.default}</option>
-              <option value={locale.pt.add.inputs.type.pc}>{locale.pt.add.inputs.type.pc}</option>
-              <option value={locale.pt.add.inputs.type.equipament}>{locale.pt.add.inputs.type.equipament}</option>
-              <option value={locale.pt.add.inputs.type.speak}>{locale.pt.add.inputs.type.speak}</option>
-              <option value={locale.pt.add.inputs.type.adpter}>{locale.pt.add.inputs.type.adpter}</option>
-              <option value={locale.pt.add.inputs.type.hardware}>{locale.pt.add.inputs.type.hardware}</option>
-              <option value={locale.pt.add.inputs.type.acessory}>{locale.pt.add.inputs.type.acessory}</option>
-              <option value={locale.pt.add.inputs.type.cable}>{locale.pt.add.inputs.type.cable}</option>
-            </select>
-          </div>
-          <div className='users-order'>
-            <h1>{locale.pt.requests.actions.order.title}</h1>
-            <select
-              className='users-order-select'
-              name="order"
-              value={order}
-              onChange={handleOrder}
-            >
-              <option value='codeItem'>{locale.pt.requests.request.code}</option>
-              <option value='displayName'>{locale.pt.requests.request.requester}</option>
-              <option value='reqAt'>{locale.pt.requests.request.reqAt}</option>
-              <option value='resAt'>{locale.pt.requests.request.resAt}</option>
-            </select>
-          </div>
+          {showEdit||showAdd? null:
+            <div className='users-filter'>
+              <h1>{locale.pt.requests.actions.filter.title}</h1>
+              <select
+                className='users-filter-select'
+                name="filter"
+                value={filter}
+                onChange={handleFilter}
+              >
+                <option value=''>{locale.pt.requests.actions.filter.default}</option>
+                <option value={locale.pt.add.inputs.type.pc}>{locale.pt.add.inputs.type.pc}</option>
+                <option value={locale.pt.add.inputs.type.equipament}>{locale.pt.add.inputs.type.equipament}</option>
+                <option value={locale.pt.add.inputs.type.speak}>{locale.pt.add.inputs.type.speak}</option>
+                <option value={locale.pt.add.inputs.type.adpter}>{locale.pt.add.inputs.type.adpter}</option>
+                <option value={locale.pt.add.inputs.type.hardware}>{locale.pt.add.inputs.type.hardware}</option>
+                <option value={locale.pt.add.inputs.type.acessory}>{locale.pt.add.inputs.type.acessory}</option>
+                <option value={locale.pt.add.inputs.type.cable}>{locale.pt.add.inputs.type.cable}</option>
+              </select>
+            </div>
+          }
+          {showEdit||showAdd? null:
+            <div className='users-order'>
+              <h1>{locale.pt.requests.actions.order.title}</h1>
+              <select
+                className='users-order-select'
+                name="order"
+                value={order}
+                onChange={handleOrder}
+              >
+                <option value='codeItem'>{locale.pt.requests.request.code}</option>
+                <option value='displayName'>{locale.pt.requests.request.requester}</option>
+                <option value='reqAt'>{locale.pt.requests.request.reqAt}</option>
+                <option value='resAt'>{locale.pt.requests.request.resAt}</option>
+              </select>
+            </div>
+          }
         </div>
       </div>:
       <div className="users-content">
         <div className='users-header'>
-          <h1>{locale.pt.navigation.requests}</h1>
+          <h1>{locale.pt.navigation.users}</h1>
         </div>
         <div className='users-actions'>
           <div className='users-filter'>
-            <h1>{locale.pt.requests.actions.filter.title}</h1>
+            <h1>{locale.pt.users.actions.filter.title}</h1>
             <select
               className='users-filter-select'
               name="filter"
               value={filter}
               onChange={handleFilter}
             >
-              <option value=''>{locale.pt.requests.actions.filter.default}</option>
+              <option value=''>{locale.pt.users.actions.filter.default}</option>
               <option value={locale.pt.add.inputs.type.pc}>{locale.pt.add.inputs.type.pc}</option>
               <option value={locale.pt.add.inputs.type.equipament}>{locale.pt.add.inputs.type.equipament}</option>
               <option value={locale.pt.add.inputs.type.speak}>{locale.pt.add.inputs.type.speak}</option>

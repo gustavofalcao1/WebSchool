@@ -13,6 +13,7 @@ const Requests = ({user}) => {
   const [users, setUsers] = useState(null)
   const [filter, setFilter] = useState('')
   const [order, setOrder] = useState('codeItem')
+  const [scanning, setScanning] = useState(false);
 
   const handleFilter = (e) => {
     setFilter(e.target.value)
@@ -31,6 +32,7 @@ const Requests = ({user}) => {
   }
 
   const close = () => {
+    setScanning(false)
     setShowAdd(false)
     setShowHistory(false)
   }
@@ -131,7 +133,7 @@ const Requests = ({user}) => {
         </div>
         */}
       </div>}
-      {showAdd? <Add item={item} users={users} setShowAdd={setShowAdd} />:
+      {showAdd? <Add item={item} users={users} setShowAdd={setShowAdd} scanning={scanning} setScanning={setScanning} />:
       showHistory? <History order={order} filter={filter} />:
       <Request user={user} users={users} setItem={setItem} setUsers={setUsers} filter={filter} order={order} />}
     </div>
