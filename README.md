@@ -6,7 +6,6 @@
 
 ## Features
 - [x] Request Inventory
-  - [ ] QR Code Feature
 - [x] Inventory Manager
 - [x] Class Room Manager
 - [x] Users Manager
@@ -14,6 +13,7 @@
 - [x] Delete Task
 - [ ] Tools Manager
 - [ ] Settings App
+- [ ] QR Code Feature
 - [ ] Electron Build
 
 ## Exec
